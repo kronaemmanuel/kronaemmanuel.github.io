@@ -1,0 +1,28 @@
+{
+  "name": "kronaemmanuel.github.io",
+  "version": "1.0.0",
+  "description": "",
+  "main": "postcss.config.js",
+  "dependencies": {
+    "autoprefixer": "^10.3.2",
+    "cssnano": "^5.0.8",
+    "postcss": "^8.3.6",
+    "postcss-import": "^14.0.2",
+    "tailwindcss": "^2.2.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kronaemmanuel/kronaemmanuel.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kronaemmanuel/kronaemmanuel.github.io/issues"
+  },
+  "homepage": "https://github.com/kronaemmanuel/kronaemmanuel.github.io#readme"
+}
