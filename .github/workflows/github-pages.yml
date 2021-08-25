@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: Jaid/action-npm-install@v1.2.4
+        with:
+          nodeEnv: "production"
+          packageManager: "npm"
       - uses: helaili/jekyll-action@v2
         with:
           token: ${{ secrets.GH_TOKEN }}
+          jekyll_env: "production"
