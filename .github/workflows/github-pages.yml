@@ -18,3 +18,4 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           jekyll_env: "production"
+          jekyll_build_options: "--trace"
