@@ -1,7 +1,14 @@
-<nav>
-  {% for route in site.data.navigation_routes %}
-    <a href="{{ route.link }}" {% if page.url == route.link %}class="current"{% endif %}>
-      {{ route.name }}
-    </a>
-  {% endfor %}
+<nav class="flex flex-row justify-between border-b border-gray-900 h-14">
+  <div class="flex flex-column items-center ml-16">
+    <span class="font-bold font-press-start">kronaemmanuel</span>
+  </div>
+  <div class="divide-x divide-gray-900 flex flex-column">
+    {% for route in site.data.navigation_routes %}
+      <a
+        href="{{ route.link }}"
+        class="{% if page.url == route.link %}bg-gray-50 text-red-500 font-medium{% endif %} font-light flex justify-center items-center px-6">
+          {{ route.name }}
+      </a>
+    {% endfor %}
+  </div>
 </nav>

@@ -4,13 +4,22 @@
     <meta charset="utf-8">
     <title>{{ page.title }}</title>
 
+    <!-- Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Default Stylesheet -->
     <link rel="stylesheet" href="/assets/css/styles.css">
 
     {% feed_meta %}
     {% seo %}
   </head>
-  <body>
-    {% include navigation_bar.liquid %}
-    {{ content }}
+  <body class="bg-gray-100">
+    <div class="container mx-auto border-b border-l border-r border-gray-900">
+      {% include navigation_bar.liquid %}
+
+      {{ content }}
+    </div>
   </body>
 </html>
