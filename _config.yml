@@ -23,3 +23,12 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-postcss
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - package.json
+  - package-lock.json
+  - vendor
+  - node_modules
