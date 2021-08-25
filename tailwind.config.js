@@ -7,7 +7,12 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "press-start": ['"Press Start 2P"', "serif"],
+        sans: ['"Heebo"', "sans-serif"],
+      },
+    },
   },
   variants: {},
   plugins: [require("@tailwindcss/typography")],
