@@ -14,8 +14,13 @@ jobs:
       - name: Install NPM dependencies
         run: |
           npm install
+          
+      - name: 💎 setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.0.2
       
-      - name: Jekyll Action TS
+      - name: 🔨 install dependencies & build site
         uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: true
