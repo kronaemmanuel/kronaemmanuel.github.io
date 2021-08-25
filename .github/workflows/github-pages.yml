@@ -16,7 +16,7 @@ jobs:
           npm install
       
       - name: Jekyll Action TS
-      - uses: limjh16/jekyll-action-ts@v2
+        uses: limjh16/jekyll-action-ts@v2
         with:
           enable_cache: true
       
