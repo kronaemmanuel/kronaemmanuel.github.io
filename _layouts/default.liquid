@@ -7,7 +7,7 @@
     <!-- Fonts Import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
 
     <!-- Default Stylesheet -->
     <link rel="stylesheet" href="/assets/css/styles.css">
@@ -16,10 +16,8 @@
     {% seo %}
   </head>
   <body class="bg-gray-100">
-    <div class="container mx-auto border-b border-l border-r border-gray-900">
-      {% include navigation_bar.liquid %}
+    {% include navigation_bar.html %}
 
-      {{ content }}
-    </div>
+    {{ content }}
   </body>
 </html>
