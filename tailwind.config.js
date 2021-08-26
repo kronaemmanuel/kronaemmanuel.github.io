@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       fontFamily: {
         "press-start": ['"Press Start 2P"', "serif"],
-        sans: ['"Heebo"', "sans-serif"],
+        sans: ['"Inter"', "sans-serif"],
       },
     },
   },
