@@ -2,6 +2,8 @@ collections:
   authors:
     output: true
 
+timezone: "Asia/Karachi"
+
 defaults:
   - scope:
       path: ""
@@ -23,6 +25,10 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
   - jekyll-postcss
+  - jekyll-purgecss
+
+# Required for jekyly-purgecss. Defaults to ./css
+css_dir: "assets/css"
 
 exclude:
   - Gemfile

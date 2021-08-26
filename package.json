@@ -9,9 +9,9 @@
     "cssnano": "^5.0.8",
     "postcss": "^8.3.6",
     "postcss-import": "^14.0.2",
+    "purgecss": "^4.0.3",
     "tailwindcss": "^2.2.7"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
