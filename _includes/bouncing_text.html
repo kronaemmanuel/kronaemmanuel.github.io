@@ -1,0 +1,10 @@
+{% assign word = include.content | split: "" %}
+{% assign wordSize = word | size %}
+
+<div class="bouncing justify-center text-red-600 font-press-start">
+  {% assign animation_delay = 0 %}
+  {% for letter in word %}
+    <div class="bouncing_letter" style="animation-delay: {{ animation_delay }}s; animation-duration: {{ wordSize | times: 0.2 | plus: 0.5 }}s">{{ letter }}</div>
+    {% assign animation_delay = animation_delay | plus: 0.2 %}
+  {% endfor %}
+</div>
