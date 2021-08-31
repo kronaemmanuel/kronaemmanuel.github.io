@@ -12,6 +12,24 @@ module.exports = {
         "press-start": ['"Press Start 2P"', "serif"],
         sans: ['"Inter"', "sans-serif"],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontFamily: ['"Press Start 2P"'],
+            },
+            h2: {
+              fontFamily: ['"Press Start 2P"'],
+            },
+            h3: {
+              fontFamily: ['"Press Start 2P"'],
+            },
+            h4: {
+              fontFamily: ['"Press Start 2P"'],
+            },
+          },
+        },
+      },
     },
   },
   variants: {},
