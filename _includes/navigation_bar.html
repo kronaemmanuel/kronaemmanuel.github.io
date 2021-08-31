@@ -7,7 +7,7 @@
       {% for route in site.data.navigation_routes %}
         <a
           href="{{ route.link }}"
-          class="{% if page.url == route.link %}bg-gray-50 text-red-500 font-medium{% endif %} font-light flex justify-center items-center px-6">
+          class="{% if page.url == route.link %}bg-gray-50 text-red-600 font-medium{% endif %} font-light flex justify-center items-center px-6">
             {{ route.name }}
         </a>
       {% endfor %}
