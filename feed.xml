@@ -1,4 +1,350 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-01T04:05:54+05:00</updated><id>/feed.xml</id><entry><title type="html">Making A Simple Animation In Liquid</title><link href="/2021/09/01/making-a-simple-animation-in-liquid.html" rel="alternate" type="text/html" title="Making A Simple Animation In Liquid" /><published>2021-09-01T00:00:00+05:00</published><updated>2021-09-01T00:00:00+05:00</updated><id>/2021/09/01/making-a-simple-animation-in-liquid</id><content type="html" xml:base="/2021/09/01/making-a-simple-animation-in-liquid.html">&lt;p&gt;I was going to write a post about how great &lt;a href=&quot;https://github.com/tailwindlabs/tailwindcss-typography&quot;&gt;Tailwind Typography&lt;/a&gt; is because all I had to do to style my website was add two classes:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-04T04:30:00+05:00</updated><id>/feed.xml</id><entry><title type="html">Making Game Of Life</title><link href="/2021/09/03/making-game-of-life.html" rel="alternate" type="text/html" title="Making Game Of Life" /><published>2021-09-03T00:00:00+05:00</published><updated>2021-09-03T00:00:00+05:00</updated><id>/2021/09/03/making-game-of-life</id><content type="html" xml:base="/2021/09/03/making-game-of-life.html">&lt;h1 id=&quot;conways-game-of-life&quot;&gt;Conway’s Game of Life&lt;/h1&gt;
+
+&lt;p&gt;So after being bored for a while, i decided to code a something which has always fascinated me. Conway’s Game of Life.&lt;/p&gt;
+
+&lt;p&gt;Conway’s game of life honestly sounds grander than it looks until you realize that it is one of the best examples of complex emergent behavior coming from simple rules. It truly is wonderful.&lt;/p&gt;
+
+&lt;p&gt;To brush up on my knowledge of Conway’s Game of Life, I went through an &lt;a href=&quot;http://pi.math.cornell.edu/~lipa/mec/lesson6.html&quot;&gt;article&lt;/a&gt; which is a course page from some course taught at Cornell university. I love reading these old school, university course pages. One can imagine some professor coding all these for their students. Thankyou to whoever coded this one.&lt;/p&gt;
+
+&lt;p&gt;Anyways, Conway’s Game of Life is an example of cellular automaton (CA). You can read more about cellular automaton in Chapter 7 of the book &lt;a href=&quot;https://natureofcode.com/&quot;&gt;‘Nature of Code’ by Daniel Shiffman&lt;/a&gt;. I came across this book because I wanted to implement Conway’s Game of Life in &lt;a href=&quot;https://p5js.org/&quot;&gt;P5.js&lt;/a&gt; which is a javascript drawing library. Its a great library, very easy to learn and work with for such projects.&lt;/p&gt;
+
+&lt;p&gt;Well, let’s get started with making Conway’s Game of Life using p5.js library.&lt;/p&gt;
+
+&lt;h2 id=&quot;setting-up-a-grid&quot;&gt;Setting up a grid&lt;/h2&gt;
+
+&lt;p&gt;Our game is played on a two dimensional grid of cells. So let’s make that first. I will start with a square canvas of 600x600 and give it a grayish background.&lt;/p&gt;
+
+&lt;p&gt;P5 has a very simple syntax, I can use the setup function to do all of my setup for the grid, then use the draw function to draw anything I want.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function setup() {
+  createCanvas(600, 600);
+  background(200);
+}
+
+function draw() {}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now I can draw a grid of rectangles on this canvas. I’m using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stroke()&lt;/code&gt; function to set the color of the border of each cell, and I’m using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rectangle&lt;/code&gt; function which takes in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rectangle(verticalPosition, horizontalPosition, width, height)&lt;/code&gt; as parameters. A simple double for loop allows me to iterate over the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numberOfRows&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numberOfColumns&lt;/code&gt; which I have calculated in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setup()&lt;/code&gt; function. Hence I’m able to show a simple grid of cells.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const cellWidth = 20;
+let numOfColumns, numOfRows;
+
+function setup() {
+  createCanvas(600, 600);
+  background(200);
+
+  numOfColumns = width / cellWidth;
+  numOfRows = height / cellWidth;
+}
+
+function draw() {
+  for (let i = 0; i &amp;lt; numOfRows; i++) {
+    for (let j = 0; j &amp;lt; numOfColumns; j++) {
+      stroke(0);
+      rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now we have successfully drawn a grid, but that isn’t all we want to do. We need to track the state of each cell. Now would be a good time to explain how the Game of Life works. We have already discussed that the Game is played on a grid of cells. Each cell in the grid can have two states. Either it will be dead or alive. Now will also be a good time to explain what the rules of the game are.&lt;/p&gt;
+
+&lt;h2 id=&quot;rules-of-game-of-life&quot;&gt;Rules of Game of Life&lt;/h2&gt;
+&lt;p&gt;At the start of the game, each cell is given a state of either dead or alive. This initial state can be calculated randomly, or can be explicitly defined.&lt;/p&gt;
+
+&lt;p&gt;Each cell goes through generations, each generation which the cell passes, the cell can change its state, depending on these simple rules:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;If a cell is alive, it will die due to:
+    &lt;ul&gt;
+      &lt;li&gt;Overpopulation: If a cell has four or more neighbours&lt;/li&gt;
+      &lt;li&gt;Loneliness: If a cell has one or less neighbours&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;If a cell is dead, it will come alive if it has exactly three alive neighbours&lt;/li&gt;
+  &lt;li&gt;Otherwise, the cell will remain in the state it already is in.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;A cell’s neighbours are the nine cells surrounding it (horizontal, vertical, diagonal).&lt;/p&gt;
+
+&lt;h2 id=&quot;keeping-track-of-state&quot;&gt;Keeping track of state&lt;/h2&gt;
+&lt;p&gt;Now that we know that we need to keep track of the state of cells to perform all the calculations to determine their state in the next generation, we need somewhere to keep track of the state. A two dimensional array is perfect for this. We need a two dimensional array of the same size as the grid. To do that, we can do the following:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let grid;
+
+// inside setup()
+grid = new Array(numOfColumns);
+for (let i = 0; i &amp;lt; numOfColumns; i++) {
+  grid[i] = new Array(numOfRows);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now let’s initialize this grid with some random state initially. Just to check if its working or not. I’m using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;random()&lt;/code&gt; function by p5.js library. If I pass in an array to it, it will randomly pick an element from the array, so I can use it to set the initial state to either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alive&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dead&lt;/code&gt;. You might want to put in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;[1, 0]&lt;/code&gt; or [true, false]` but it doesn’t really matter since this is just a experiment.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;for (let x = 0; x &amp;lt; numOfRows; x++) {
+  for (let y = 0; y &amp;lt; numOfColumns; y++) {
+    grid[x][y] = random([&quot;alive&quot;, &quot;dead&quot;]);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now if you &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;console.log()&lt;/code&gt; the grid, you’ll be able to see that it is filled randomly with either the state alive or dead. Let’s show this on our canvas too. We can edit the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;draw()&lt;/code&gt; function as follows:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function draw() {
+  for (let i = 0; i &amp;lt; numOfRows; i++) {
+    for (let j = 0; j &amp;lt; numOfColumns; j++) {
+      if (grid[i][j] === &quot;alive&quot;) {
+        fill(255);
+      } else {
+        fill(0);
+      }
+      stroke(0);
+      rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Once again, the code itself is very simple. I’m using a simple if else condition to check if the grid cell corresponding to the rectangle being drawn is alive or not. The result is some crossword puzzle looking grid.&lt;/p&gt;
+
+&lt;p&gt;Here is the full code which we have written so far:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const cellWidth = 20;
+let numOfColumns, numOfRows;
+let grid;
+
+function setup() {
+  createCanvas(600, 600);
+  background(200);
+
+  numOfColumns = width / cellWidth;
+  numOfRows = height / cellWidth;
+
+  grid = new Array(numOfColumns);
+  for (let i = 0; i &amp;lt; numOfColumns; i++) {
+    grid[i] = new Array(numOfRows);
+  }
+
+  for (let x = 0; x &amp;lt; numOfRows; x++) {
+    for (let y = 0; y &amp;lt; numOfColumns; y++) {
+      grid[x][y] = random([&quot;alive&quot;, &quot;dead&quot;]);
+    }
+  }
+}
+
+function draw() {
+  for (let i = 0; i &amp;lt; numOfRows; i++) {
+    for (let j = 0; j &amp;lt; numOfColumns; j++) {
+      if (grid[i][j] === &quot;alive&quot;) {
+        fill(255);
+      } else {
+        fill(0);
+      }
+      stroke(0);
+      rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Each time I refresh the page, I get a new randomized initial grid. Now that we have completed this, we should get started on calculating the next generation of the grid, so our game can actually start work.&lt;/p&gt;
+
+&lt;h2 id=&quot;going-through-the-agesgenerations&quot;&gt;Going through the Ages(generations)&lt;/h2&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;draw()&lt;/code&gt; function of p5 is constantly executing the code in it. So if just put a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createNextGeneration()&lt;/code&gt; function (which changes the grid to the grid containing the next generation) on the top before we draw our grid, we can create an animation in which the Game of Life is being played.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function draw() {
+  createNextGeneration();
+  for (let i = 0; i &amp;lt; numOfRows; i++) {
+    for (let j = 0; j &amp;lt; numOfColumns; j++) {
+      if (grid[i][j] === &quot;alive&quot;) {
+        fill(255);
+      } else {
+        fill(0);
+      }
+      stroke(0);
+      rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;We still haven’t made this function yet, so let’s do this below (outside, not inside) our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;draw()&lt;/code&gt; function. We will also need a variable to hold the next grid. We will declare it as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nextGrid&lt;/code&gt; at the top of our code along with all other global variables. We should also initialize it as a two dimensional array the same way as we did our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid&lt;/code&gt; array. Since this will create duplicated code, we will extract the code into a function and avoid code duplication.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;let nextGrid;
+
+function create2dArray(rows, columns) {
+  let array = new Array(columns);
+  for (let i = 0; i &amp;lt; columns; i++) {
+    array[i] = new Array(rows);
+  }
+  return array;
+}
+
+function setup() {
+  //...
+
+  grid = create2dArray(numOfRows, numOfColumns);
+  next = create2dArray(numOfRows, numOfColumns);
+
+  //...
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Coming back to our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createNextGeneration()&lt;/code&gt; function. Let’s create that now, this is the confusing part in this whole project, but let’s go through it by breaking it down into simpler problems.
+We need to implement the rules of the game. I’ve already described the rules above, and it seems like to get the next state of each cell, first we need to get information about the neighbours of the cell. So let’s make a function which accepts a cell as an input and gives us the states of its neighbours as an output. Since the rest of the decisions are based on how many of those neighbours are dead or alive, so its a good idea to get just the neighbours first.&lt;/p&gt;
+
+&lt;p&gt;I implemented the function like this, it checks all cells in the square of surrounding cells. The first if statement is to check whether the array element being accessed is valid or not, since our 2D array only has elements of index &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt; where &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numOfColumns/numOfRows&amp;gt;i&amp;gt;=0&lt;/code&gt;, so we shouldn’t run the code for invalid array indexes to avoid errors. It just has one other if statement check so that a cell doesn’t end up counting itself as its own neighbour.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function getNeighbours(columnPosition, rowPosition) {
+  let neighbours = [];
+
+  for (let x = columnPosition - 1; x &amp;lt;= columnPosition + 1; x++) {
+    for (let y = rowPosition - 1; y &amp;lt;= rowPosition + 1; y++) {
+      if (x &amp;gt;= 0 &amp;amp;&amp;amp; y &amp;gt;= 0 &amp;amp;&amp;amp; x &amp;lt; numOfColumns &amp;amp;&amp;amp; y &amp;lt; numOfRows) {
+        if (!(x == columnPosition &amp;amp;&amp;amp; y == rowPosition)) {
+          neighbours.push(grid[x][y]);
+        }
+      }
+    }
+  }
+
+  return neighbours;
+}
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now that we have the neighbours of a cell, we can easilly implement the rules of the game itself. Let’s do that in our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createNextGeneration&lt;/code&gt; function. We want to implement the next state of the grid on our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nextGrid&lt;/code&gt; array.&lt;/p&gt;
+
+&lt;p&gt;We can simplify the rules a bit as:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;If a cell has one or less neighbours alive, it will be dead in the next generation.&lt;/li&gt;
+  &lt;li&gt;If a cell has 2 alive neighbours, its next generation will be the same as the current generation.&lt;/li&gt;
+  &lt;li&gt;If a cell has 3 alive neighbours, it will be alive next generation.&lt;/li&gt;
+  &lt;li&gt;If a cell has four or more neighbours alive, it will be dead in the next generation.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now we can make a simple double for loop to iterate over all the cells and we can implement these 4 rules as simple if statements.&lt;/p&gt;
+
+&lt;p&gt;Here I have implemented the above 4 rules in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;createNextGeneration()&lt;/code&gt; function. At the end of the function, I have also swapped the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nextGrid&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grid&lt;/code&gt;, so it will be updated the next time the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;draw()&lt;/code&gt; function runs.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;function createNextGeneration() {
+  for (let i = 0; i &amp;lt; numOfColumns; i++) {
+    for (let j = 0; j &amp;lt; numOfRows; j++) {
+      let neighbours = getNeighbours(i, j);
+      let aliveNeighbours = neighbours.filter(
+        (neighbour) =&amp;gt; neighbour === &quot;alive&quot;
+      ).length;
+
+      if (aliveNeighbours &amp;lt;= 1) {
+        nextGrid[i][j] = &quot;dead&quot;;
+      } else if (aliveNeighbours === 2) {
+        nextGrid[i][j] = grid[i][j];
+      } else if (aliveNeighbours === 3) {
+        nextGrid[i][j] = &quot;alive&quot;;
+      } else {
+        nextGrid[i][j] = &quot;dead&quot;;
+      }
+    }
+  }
+
+  let temp = grid;
+  grid = nextGrid;
+  nextGrid = temp;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I’m using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.filter()&lt;/code&gt; method to get all alive neighbours of a cell, and then getting &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.length()&lt;/code&gt; of that array to get information of how many alive neighbours a cell has.&lt;/p&gt;
+
+&lt;p&gt;Here is the full code that we have so far:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;const cellWidth = 20;
+let numOfColumns, numOfRows;
+let grid;
+let nextGrid;
+
+function setup() {
+  createCanvas(600, 600);
+  background(200);
+
+  numOfColumns = width / cellWidth;
+  numOfRows = height / cellWidth;
+
+  grid = create2dArray(numOfRows, numOfColumns);
+  nextGrid = create2dArray(numOfRows, numOfColumns);
+
+  for (let x = 0; x &amp;lt; numOfColumns; x++) {
+    for (let y = 0; y &amp;lt; numOfRows; y++) {
+      grid[x][y] = random([&quot;alive&quot;, &quot;dead&quot;]);
+    }
+  }
+}
+
+function draw() {
+  createNextGeneration();
+  for (let i = 0; i &amp;lt; numOfColumns; i++) {
+    for (let j = 0; j &amp;lt; numOfRows; j++) {
+      if (grid[i][j] === &quot;alive&quot;) {
+        fill(0);
+      } else {
+        fill(255);
+      }
+      stroke(0);
+      rect(j * cellWidth, i * cellWidth, cellWidth, cellWidth);
+    }
+  }
+}
+
+function create2dArray(rows, columns) {
+  let array = new Array(columns);
+  for (let i = 0; i &amp;lt; columns; i++) {
+    array[i] = new Array(rows);
+  }
+  return array;
+}
+
+function createNextGeneration() {
+  for (let i = 0; i &amp;lt; numOfColumns; i++) {
+    for (let j = 0; j &amp;lt; numOfRows; j++) {
+      let neighbours = getNeighbours(i, j);
+      let aliveNeighbours = neighbours.filter(
+        (neighbour) =&amp;gt; neighbour === &quot;alive&quot;
+      ).length;
+
+      if (aliveNeighbours &amp;lt;= 1) {
+        nextGrid[i][j] = &quot;dead&quot;;
+      } else if (aliveNeighbours === 2) {
+        nextGrid[i][j] = grid[i][j];
+      } else if (aliveNeighbours === 3) {
+        nextGrid[i][j] = &quot;alive&quot;;
+      } else {
+        nextGrid[i][j] = &quot;dead&quot;;
+      }
+    }
+  }
+
+  let temp = grid;
+  grid = nextGrid;
+  nextGrid = temp;
+}
+
+function getNeighbours(columnPosition, rowPosition) {
+  let neighbours = [];
+
+  for (let x = columnPosition - 1; x &amp;lt;= columnPosition + 1; x++) {
+    for (let y = rowPosition - 1; y &amp;lt;= rowPosition + 1; y++) {
+      if (x &amp;gt;= 0 &amp;amp;&amp;amp; y &amp;gt;= 0 &amp;amp;&amp;amp; x &amp;lt; numOfColumns &amp;amp;&amp;amp; y &amp;lt; numOfRows) {
+        if (!(x == columnPosition &amp;amp;&amp;amp; y == rowPosition)) {
+          neighbours.push(grid[x][y]);
+        }
+      }
+    }
+  }
+
+  return neighbours;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This gives us a working Conway’s Game of Life on a 30x30 grid.&lt;/p&gt;
+
+&lt;h2 id=&quot;small-enhancement&quot;&gt;Small Enhancement&lt;/h2&gt;
+&lt;p&gt;Doing so many calculations can be CPU intensive and we really do not need that many frames to always be calculated. Hence I’m limiting the framerate to be 30 frames per second. I can do this by putting the following line in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;setup()&lt;/code&gt; function:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;framerate(30)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;check-the-project&quot;&gt;Check the Project&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.kronaemmanuel.com/game_of_life/&quot;&gt;Demo&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/kronaemmanuel/game_of_life&quot;&gt;Repository&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lessons-learnt&quot;&gt;Lessons Learnt:&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;p5.js is a really wonderful and easy to use library for such small projects where you’re not worried about things like &lt;a href=&quot;https://bundlephobia.com/package/p5@1.4.0&quot;&gt;bundle size&lt;/a&gt;, performance, etc. The syntax is really easy to use, and this should definitely be used to teach beginners how to code.&lt;/li&gt;
+  &lt;li&gt;It is possible to make a semi-cool project in a few hours, I should do this more often as it is a very rewarding to see things actually working.&lt;/li&gt;
+  &lt;li&gt;Documenting the process as you go through it, makes the process much easier. For example, I wrote this post as I was making the project, this means I could copy the latest code into my post as I wrote it. Makes things very easy.&lt;/li&gt;
+  &lt;li&gt;I really need to start using an online service such as Contentful or at least Jekyll Admin to write these blogposts. I didn’t include images, gifs in this post as I knew I would have to bring them into my repo and then include them.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>krona</name></author><summary type="html">Conway’s Game of Life</summary></entry><entry><title type="html">Making A Simple Animation In Liquid</title><link href="/2021/09/01/making-a-simple-animation-in-liquid.html" rel="alternate" type="text/html" title="Making A Simple Animation In Liquid" /><published>2021-09-01T00:00:00+05:00</published><updated>2021-09-01T00:00:00+05:00</updated><id>/2021/09/01/making-a-simple-animation-in-liquid</id><content type="html" xml:base="/2021/09/01/making-a-simple-animation-in-liquid.html">&lt;p&gt;I was going to write a post about how great &lt;a href=&quot;https://github.com/tailwindlabs/tailwindcss-typography&quot;&gt;Tailwind Typography&lt;/a&gt; is because all I had to do to style my website was add two classes:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class&quot;prose prose-red&quot;&amp;gt;
 &amp;lt;/div&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
