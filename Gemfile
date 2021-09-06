@@ -14,4 +14,5 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag"
   gem "jekyll-postcss"
   gem "jekyll-purgecss"
+  gem "jekyll-admin"
 end
