@@ -1,15 +1,6 @@
-collections:
-  authors:
-    output: true
-
 timezone: "Asia/Karachi"
 
 defaults:
-  - scope:
-      path: ""
-      type: "authors"
-    values:
-      layout: "author"
   - scope:
       path: ""
       type: "posts"
