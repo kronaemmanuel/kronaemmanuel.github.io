@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-07T01:38:48+05:00</updated><id>/feed.xml</id><entry><title type="html">Trying various CMS(s) with my Jekyll website</title><link href="/2021/09/07/CMS-for-jekyll.html" rel="alternate" type="text/html" title="Trying various CMS(s) with my Jekyll website" /><published>2021-09-07T00:00:00+05:00</published><updated>2021-09-07T00:00:00+05:00</updated><id>/2021/09/07/CMS-for-jekyll</id><content type="html" xml:base="/2021/09/07/CMS-for-jekyll.html">&lt;p&gt;Alright, so tbh, I kinda hate Jekyll, it just seems too old. I guess Eleventy, Hugo, Gatsby are way better for generating static websites. But anyways, I came to Jekyll because I wanted to experience something other than javascript.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.0">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2021-09-07T23:48:16+05:00</updated><id>/feed.xml</id><entry><title type="html">Trying various CMS(s) with my Jekyll website</title><link href="/2021/09/07/CMS-for-jekyll.html" rel="alternate" type="text/html" title="Trying various CMS(s) with my Jekyll website" /><published>2021-09-07T00:00:00+05:00</published><updated>2021-09-07T00:00:00+05:00</updated><id>/2021/09/07/CMS-for-jekyll</id><content type="html" xml:base="/2021/09/07/CMS-for-jekyll.html">&lt;p&gt;Alright, so tbh, I kinda hate Jekyll, it just seems too old. I guess Eleventy, Hugo, Gatsby are way better for generating static websites. But anyways, I came to Jekyll because I wanted to experience something other than javascript.&lt;/p&gt;
 
 &lt;p&gt;In my last post, I discovered that I couldn’t easily put images etc. into my blogpost and hence was unable to explain or show some things that I would have wanted to. So to solve that issue, I tried three things.&lt;/p&gt;
 &lt;h2 id=&quot;contentful&quot;&gt;Contentful&lt;/h2&gt;
@@ -18,7 +18,133 @@
 &lt;h2 id=&quot;jekyll-admin&quot;&gt;Jekyll Admin&lt;/h2&gt;
 &lt;p&gt;After trying my luck with both CMSs above, I remembered that I had come across Jekyll Admin &lt;a href=&quot;https://github.com/jekyll/jekyll-admin/&quot;&gt;repo&lt;/a&gt; when I was browsing the Jekyll organization on github once. So I decided to give it a go. It seems pretty simple to use and also fulfills all my requirements. Although there is one requirement that I want to still test. Does it allow me to put in images without any effort? Let’s test it rn.&lt;/p&gt;
 
-&lt;p&gt;And no, we can’t add it easilly. So I guess this whole thing was a failure. Follow me for more disappointing experiences like this 🥲&lt;/p&gt;</content><author><name></name></author><summary type="html">Alright, so tbh, I kinda hate Jekyll, it just seems too old. I guess Eleventy, Hugo, Gatsby are way better for generating static websites. But anyways, I came to Jekyll because I wanted to experience something other than javascript.</summary></entry><entry><title type="html">Making Game Of Life</title><link href="/2021/09/03/making-game-of-life.html" rel="alternate" type="text/html" title="Making Game Of Life" /><published>2021-09-03T00:00:00+05:00</published><updated>2021-09-03T00:00:00+05:00</updated><id>/2021/09/03/making-game-of-life</id><content type="html" xml:base="/2021/09/03/making-game-of-life.html">&lt;h1 id=&quot;conways-game-of-life&quot;&gt;Conway’s Game of Life&lt;/h1&gt;
+&lt;p&gt;And no, we can’t add it easilly. So I guess this whole thing was a failure. Follow me for more disappointing experiences like this 🥲&lt;/p&gt;</content><author><name></name></author><summary type="html">Alright, so tbh, I kinda hate Jekyll, it just seems too old. I guess Eleventy, Hugo, Gatsby are way better for generating static websites. But anyways, I came to Jekyll because I wanted to experience something other than javascript.</summary></entry><entry><title type="html">Creating a new website using Hugo</title><link href="/2021/09/07/Hugo-as-a-blogging-medium.html" rel="alternate" type="text/html" title="Creating a new website using Hugo" /><published>2021-09-07T00:00:00+05:00</published><updated>2021-09-07T00:00:00+05:00</updated><id>/2021/09/07/Hugo-as-a-blogging-medium</id><content type="html" xml:base="/2021/09/07/Hugo-as-a-blogging-medium.html">&lt;p&gt;I need a website where I can easily write blogposts of the fun projects I do. I want to host it on Github Pages on the subdomain &lt;a href=&quot;http://www.lab.kronaemmanuel.com&quot;&gt;lab.kronaemmanuel.com&lt;/a&gt;. The idea being that the page is a collection of all the “experiments” I do. I want to have a website which has the following features:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Showcases the various fun little projects that I work on&lt;/li&gt;
+  &lt;li&gt;Shows a mini essay that I write while I create the project as a form of documentation of how the project was built.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Hence, on the development side of things, I want a platform where it is super easy to write content, which I can then post. I thought that I could do so with my Jekyll personal website, but it doesn’t look like Jekyll can easilly connect to some pre built headless CMS such as Netlify CMS or Contentful. So I’m looking at other options. Even though I love javascript, and its my forte, I want to use other languages, So I’m going to try Hugo.&lt;/p&gt;
+
+&lt;p&gt;Hugo is a static site generator made in Go Language, which I’ve always wanted to use anyways so this is a nice excuse for me to learn a bit of Go Language as I make my website.&lt;/p&gt;
+
+&lt;p&gt;Hugo’s documentation is definitely not that good. While Jekyll gives me a running website even without a theme, it seems that I wouldn’t be able to do so in Hugo. Hugo also doesn’t have documentation on how to setup a website if you’re not installing a prebuilt theme where Jekyll has awesome documentation on what to do if you’re starting from scratch. Therefore, as I figure it out, I want to write this blogpost to document how to get started with Hugo without a theme.&lt;/p&gt;
+
+&lt;p&gt;Right away, I can see that running &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hugo server -D&lt;/code&gt; gives me a couple of warnings that:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;WARN 2021/09/07 01:21:41 found no layout file for &quot;HTML&quot; for kind &quot;page&quot;: You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2021/09/07 01:21:41 found no layout file for &quot;HTML&quot; for kind &quot;home&quot;: You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2021/09/07 01:21:41 found no layout file for &quot;HTML&quot; for kind &quot;taxonomy&quot;: You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2021/09/07 01:21:41 found no layout file for &quot;HTML&quot; for kind &quot;section&quot;: You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+WARN 2021/09/07 01:21:41 found no layout file for &quot;HTML&quot; for kind &quot;taxonomy&quot;: You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Seems like I need at layouts files for at least “page”, “home”, “taxonomy”, and “section”. Well, let’s see if these are really required, or if I can skip some of them.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-a-layout-file&quot;&gt;Create a layout file&lt;/h2&gt;
+&lt;p&gt;So I guessed that it needed a basic layout file, so I created one called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layouts/index.html&lt;/code&gt; and put some random html in it, and now my website actually has content showing on its home page. But ofcourse, that’s not what i want. I want a layout page which allows me to put content inside it. So let’s just setup some basic html for now, and then we can look at how to put content inside the layout.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+    &amp;lt;title&amp;gt;Sample Title&amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;h1&amp;gt;Hello, welcome to a working Hugo website&amp;lt;/h1&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;put-content-inside-a-layout-file&quot;&gt;Put content inside a layout file&lt;/h2&gt;
+&lt;p&gt;I remember that while glossing over the docs, there was mention of a &lt;a href=&quot;https://pkg.go.dev/text/template&quot;&gt;Go templating language&lt;/a&gt;. Although the docs on the Go website were boring, the documentation on Hugo’s website about &lt;a href=&quot;https://gohugo.io/templates/introduction/&quot;&gt;templating&lt;/a&gt; was quite useful. So already I understand that we can use &lt;a href=&quot;https://gohugo.io/content-management/front-matter/&quot;&gt;front matter&lt;/a&gt; (metadata about some content file) fields to specify a title for the page instead of using hardcoded text in the layout file. So let’s make some modifications:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;meta charset=&quot;utf-8&quot;&amp;gt;
+    &amp;lt;title&amp;gt;{{ .Title }}&amp;lt;/title&amp;gt;
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;h1&amp;gt;{{ .Content }}&amp;lt;/h1&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Since the front matter can contain the values for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Title&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Content&lt;/code&gt; so we have put these here to be fetched from the content itself.&lt;/p&gt;
+
+&lt;p&gt;Now for our content file, I can create &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content/_index.md&lt;/code&gt; which will be the content file for our home page.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+title: Home
+layout: index
+---
+Hello There
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I can now rejoice a bit as our home page is finally working, and I can put stuff in it.&lt;/p&gt;
+&lt;h2 id=&quot;using-hugo-pipes-for-assets&quot;&gt;Using Hugo Pipes for Assets&lt;/h2&gt;
+&lt;p&gt;We need a way to style our document and for that we need to include CSS. All style files are considered an asset, so to use those within our project, we will use &lt;a href=&quot;https://gohugo.io/hugo-pipes/introduction/&quot;&gt;Hugo Pipes&lt;/a&gt;. Let’s see how they work. First I can create a new folder &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/assets&lt;/code&gt; and a file within that to contain my css: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/assets/main.css&lt;/code&gt;. Let’s put some simple css in it for now:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;body {
+  color: red;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I set the font color to red just so it would be immediately visible if my Hugo Pipe was working correctly. I can put the pipe in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/layout/index.html&lt;/code&gt; like this in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;head&amp;gt;&lt;/code&gt; tag:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &amp;lt;!-- Default Stylesheet --&amp;gt;
+    {{ $style := resources.Get &quot;main.css&quot; }}
+    &amp;lt;link rel=&quot;stylesheet&quot; href=&quot;{{ $style.Permalink }}&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And its working, I did have to restart my server though, as it didn’t recognize the new file in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/assets&lt;/code&gt; folder otherwise. Now my text is red, So i know that the css is working correctly.&lt;/p&gt;
+&lt;h2 id=&quot;partial-templates&quot;&gt;Partial Templates&lt;/h2&gt;
+&lt;p&gt;We need a navigation bar for our website, and we probably want it on most pages, so we can make a partial template of it which we can include in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/index.html&lt;/code&gt; which is probably our default layout. A partial template is not a full page, but rather just a part of it.&lt;/p&gt;
+
+&lt;p&gt;I create a new partial template at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/partials/navbar.html&lt;/code&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/layout/partials/&lt;/code&gt; is a special folder just for partial templates. Here is some simple code which we put in our navbar:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;nav&amp;gt;
+  &amp;lt;a href=&quot;/&quot;&amp;gt;Home&amp;lt;/a&amp;gt;
+  &amp;lt;a href=&quot;/about&quot;&amp;gt;About&amp;lt;/a&amp;gt;
+&amp;lt;/nav&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now to include this partial in our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/index.html&lt;/code&gt; template, we can use the partial function from Hugo templating langugage:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &amp;lt;!-- Navigation Bar --&amp;gt;
+    {{ partial &quot;navbar.html&quot; . }}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can now see a navigation bar in our homepage. Although the About page doesn’t work, we can fix that.&lt;/p&gt;
+&lt;h2 id=&quot;adding-more-pages&quot;&gt;Adding more pages&lt;/h2&gt;
+&lt;p&gt;To add more pages, I &lt;a href=&quot;https://gohugo.io/templates/base/&quot;&gt;looked around a bit&lt;/a&gt;, and found that I needed a default template, so I created a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/layout/_default/page.html&lt;/code&gt; template, gave it all the same content as my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/index.html&lt;/code&gt;. I guess the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/index.html&lt;/code&gt; is just for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.md&lt;/code&gt; content page, and the the one in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/_default&lt;/code&gt; directory is for everything else. Anyways, I also added an About page in my content folder as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/content/about.md&lt;/code&gt;. I put some sample content in it and set the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout&lt;/code&gt; template as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;page&lt;/code&gt; in my front matter:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+title: Home
+layout: page
+---
+# About me
+Blim Blam
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;h2 id=&quot;add-a-navigation-bar&quot;&gt;Add a navigation bar&lt;/h2&gt;
+&lt;p&gt;In Jekyll, I was using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;navigation_routes.yaml&lt;/code&gt; data file which had all the routes defined in it, and I could use that to create a navigation bar. I guess you can do that in Hugo too, I tried but couldn’t figure our how to give a different class to the active page. But i did find another solution, which is to use Hugo’s own Menu system. Here’s how one can do that. We need to add our pages to the the menu. Let’s say we call out menu &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt;. So we will have to add this entry to our front matter of the pages which we want to include in the menu.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;---
+title: About
+layout: page
+menu: &quot;main&quot;
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Here I have added it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content/about.md&lt;/code&gt; page, I’ll also do the same for my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;content/_index.md&lt;/code&gt; page. After that I will consider that these two pages have now been added to an array over which I can iterate. To iterate through that array I can use the following logic in my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;layout/partials/navbar.html&lt;/code&gt; file.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;nav&amp;gt;
+    {{ $currentPage := . }}
+    {{ range .Site.Menus.main }}
+      &amp;lt;a class=&quot;normal{{if $currentPage.IsMenuCurrent &quot;main&quot; . }} active{{end}}&quot; href=&quot;{{ .URL }}&quot; title=&quot;{{ .Title }}&quot;&amp;gt;{{ .Name }}&amp;lt;/a&amp;gt;
+    {{ end }}
+&amp;lt;/nav&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;What’s happening here is that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; is the current context, when the code starts parsing, the current context is the Page since we have passed it this context when we called the navbar partial by putting a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.&lt;/code&gt; at the end of the partial function call. So we assign this value to a variable called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$currentPage&lt;/code&gt; and then we loop over the main menu of the site and then check if the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$currentPage&lt;/code&gt; is also the currently selected page in the menu. I do not understand the difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;IsMenuCurrent&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;HasMenuCurrent&lt;/code&gt; which is another method I could have used. However this works perfectly for our usecase, it gives us the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; class when the page is currently selected in the navbar. So let’s set some different styling for our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;active&lt;/code&gt; class in our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/assets/main.css&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.active {
+  color: green;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;So anyways, that’s all good in the hood. We have managed to create a working Hugo website without the need for any theme. Although it doesn’t look too good, I believe its in working condition.&lt;/p&gt;
+
+&lt;p&gt;My plan with this website is to style it with Tailwind CSS. I also want to experiment with Notion API, maybe I can write all my content there, and then this website can just use that content instead. Let’s see. I’ll add more blogposts regarding this if I can.&lt;/p&gt;</content><author><name></name></author><summary type="html">I need a website where I can easily write blogposts of the fun projects I do. I want to host it on Github Pages on the subdomain lab.kronaemmanuel.com. The idea being that the page is a collection of all the “experiments” I do. I want to have a website which has the following features: Showcases the various fun little projects that I work on Shows a mini essay that I write while I create the project as a form of documentation of how the project was built.</summary></entry><entry><title type="html">Making Game Of Life</title><link href="/2021/09/03/making-game-of-life.html" rel="alternate" type="text/html" title="Making Game Of Life" /><published>2021-09-03T00:00:00+05:00</published><updated>2021-09-03T00:00:00+05:00</updated><id>/2021/09/03/making-game-of-life</id><content type="html" xml:base="/2021/09/03/making-game-of-life.html">&lt;h1 id=&quot;conways-game-of-life&quot;&gt;Conway’s Game of Life&lt;/h1&gt;
 
 &lt;p&gt;So after being bored for a while, i decided to code a something which has always fascinated me. Conway’s Game of Life.&lt;/p&gt;
 
