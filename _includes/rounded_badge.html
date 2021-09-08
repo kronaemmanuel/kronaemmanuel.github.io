@@ -1,0 +1,12 @@
+{% assign width = 16 %}
+{% assign borderWidth = 8 %}
+{% assign roundedAmount = "2xl" %}
+{% if include.size == "md" %}
+  {% assign width = 14 %}
+  {% assign roundedAmount = "xl" %}
+{% elsif include.size == "sm" %}
+  {% assign width = 12 %}
+  {% assign roundedAmount = "xl" %}
+{% endif %}
+
+<div class="w-{{ width }} h-{{ width }} bg-{{ include.color }}-400 rounded-{{ roundedAmount }} border-{{ borderWidth }} border-{{ include.color }}-300 transform rotate-45 {{ include.styles }}"></div>

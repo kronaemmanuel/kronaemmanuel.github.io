@@ -1,0 +1,17 @@
+{% assign size = "lg" %}
+{% assign color = "purple" %}
+{% if include.level == 2 %}
+  {% assign size = "md" %}
+  {% assign color = "yellow" %}
+{% elsif include.level == 3 %}
+  {% assign size = "sm" %}
+  {% assign color = "pink" %}
+{% endif %}
+
+<div class="flex items-center justify-center my-2">
+  {% if include.level == 1 %}
+    {% include rounded_badge.html color="blue" size="sm" styles="order-1 translate-x-3" %}
+    {% include rounded_badge.html color="yellow" size="sm" styles="order-3 -translate-x-3" %}
+  {% endif %}
+  {% include rounded_badge.html color=color size=size styles="order-2" %}
+</div>

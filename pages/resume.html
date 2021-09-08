@@ -1,0 +1,104 @@
+---
+title: Resume
+permalink: /resume
+layout: resume
+---
+{% assign resume = site.data.resume_data %}
+
+<div class="px-36 pt-52">
+  <section class="flex justify-between">
+    <div class="space-y-4">
+      <h1 class="text-6xl font-bold text-gray-900">
+        {{ resume.name }}
+        <br>
+        <span class="text-5xl">
+        {{ resume.title }}
+        </span>
+      </h1>
+      <div class="my-2 flex items-center space-x-2">
+        {% if resume.for_hire %}
+          {% include switch_toggle_on.html %}
+          <p>For hire</p>
+        {% else %}
+          {% include switch_toggle_off.html %}
+          <p class="line-through">For hire</p>
+        {% endif %}
+      </div>
+    </div>
+    <div class="space-y-3">
+      <p>{{ resume.contact.email }}</p>
+      <p>{{ resume.contact.phone }}</p>
+      <p>{{ resume.contact.city }}</p>
+      <div class="flex space-x-2">
+        {% for social in resume.contact.socials %}
+          <a href="{{ social.link }}">
+            <img src="{{ social.logo }}"/>
+          </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="mt-20 w-1/2">
+    <p>{{ resume.objective }}</p>
+  </section>
+
+  <section class="mt-20 flex justify-between">
+    <div class="w-4/6">
+      <h2 class="text-3xl font-bold text-gray-900">Work Experience</h2>
+      {% for experience in resume.work_experiences %}
+        <div class="my-10 flex flex-col space-y-3">
+          <p class="text-gray-600">{{ experience.from }} - {{ experience.to }}</p>
+          <h3 class="font-bold">{{ experience.position }}</h3>
+          <div class="flex items-center space-x-3">
+            <div class="flex space-x-3">
+              {% for logo in experience.logos %}
+                <img src="{{ logo }}"/>
+              {% endfor %}
+            </div>
+            <h3 class="font-bold">{{ experience.company }}</h3>
+            <p>{{ experience.company_description }}</p>
+          </div>
+          <p class="w-3/4">{{ experience.job_description }}</p>
+          {% for link in experience.links %}
+          <a href="{{ link.link }}" class="underline text-blue-600">{{ link.text }}</a>
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="w-1/6">
+      <h2 class="text-3xl text-center font-bold text-gray-900">Education</h2>
+      {% for period in resume.education %}
+        <div class="my-10 flex flex-col items-center space-y-3 text-center">
+            {% include rounded_badge_level.html level=period.level %}
+            <h3 class="font-bold">{{ period.title }}</h3>
+            <div>
+              <p>{{ period.institution }}<br>{{ period.from }} - {{ period.to }}</p>
+              <p>{{ period.program }}</p>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="mt-20">
+    <h2 class="text-3xl font-bold text-gray-900">Skills</h2>
+    <div class="grid grid-cols-4 gap-20 mt-10">
+      {% for skill in resume.skills %}
+        <div>
+          <h3 class="font-bold">{{ skill.title }}</h3>
+          <p>{{ skill.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<!-- Attributions
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+-->
