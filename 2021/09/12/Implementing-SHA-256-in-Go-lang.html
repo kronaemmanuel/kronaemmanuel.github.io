@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Implementing SHA-256 in Go language (with strings🥲)</title>
+
+    <!-- Fonts Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <!-- Default Stylesheet -->
+    <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <link type="application/atom+xml" rel="alternate" href="/feed.xml" />
+    <!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>Implementing SHA-256 in Go language (with strings🥲)</title>
+<meta name="generator" content="Jekyll v4.2.0" />
+<meta property="og:title" content="Implementing SHA-256 in Go language (with strings🥲)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I have put off doing anything in Go for a very long time. I had went through the Go tour a long time ago, but I hadn’t actually made anything in it. I mean, I did make a website(not complete yet ofc) in Hugo, which is a web framework made with Go, but it didn’t feel like writing actual Go code. So to scratch this itch, i decided to finally write some Go code." />
+<meta property="og:description" content="I have put off doing anything in Go for a very long time. I had went through the Go tour a long time ago, but I hadn’t actually made anything in it. I mean, I did make a website(not complete yet ofc) in Hugo, which is a web framework made with Go, but it didn’t feel like writing actual Go code. So to scratch this itch, i decided to finally write some Go code." />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-12T00:00:00+05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Implementing SHA-256 in Go language (with strings🥲)" />
+<script type="application/ld+json">
+{"headline":"Implementing SHA-256 in Go language (with strings🥲)","dateModified":"2021-09-12T00:00:00+05:00","datePublished":"2021-09-12T00:00:00+05:00","description":"I have put off doing anything in Go for a very long time. I had went through the Go tour a long time ago, but I hadn’t actually made anything in it. I mean, I did make a website(not complete yet ofc) in Hugo, which is a web framework made with Go, but it didn’t feel like writing actual Go code. So to scratch this itch, i decided to finally write some Go code.","mainEntityOfPage":{"@type":"WebPage","@id":"/2021/09/12/Implementing-SHA-256-in-Go-lang.html"},"url":"/2021/09/12/Implementing-SHA-256-in-Go-lang.html","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+  </head>
+  <body class="bg-gray-50">
+    <div class="w-full">
+  <header class="container flex flex-row justify-end justify-between  h-14 mx-auto border-b border-l border-r border-gray-500">
+    
+      <a href="index.html" class="flex flex-column items-center ml-16">
+        <span class="font-bold font-press-start">kronaemmanuel</span>
+      </a>
+    
+    <nav class="divide-x divide-gray-900 flex flex-column">
+      
+        <a
+          href="/index.html"
+          class=" font-light flex justify-center items-center px-6">
+            Home
+        </a>
+      
+        <a
+          href="/about"
+          class=" font-light flex justify-center items-center px-6">
+            About
+        </a>
+      
+        <a
+          href="/resume"
+          class=" font-light flex justify-center items-center px-6">
+            Resume
+        </a>
+      
+        <a
+          href="/blog"
+          class=" font-light flex justify-center items-center px-6">
+            Blog
+        </a>
+      
+    </nav>
+  </div>
+</div>
+
+
+    <section class="border-b border-gray-500">
+      <div class="container mx-auto py-8 border-l border-r border-gray-500">
+        <div class="prose prose-red mx-auto">
+          <h1>Implementing SHA-256 in Go language (with strings🥲)</h1>
+
+<p>
+  12 Sep 2021 - <span>Krona Emmanuel</span>
+</p>
+
+<p>I have put off doing anything in Go for a very long time. I had went through the Go tour a long time ago, but I hadn’t actually made anything in it. I mean, I did make a <a href="http://lab.kronaemmanuel.com/">website</a>(not complete yet ofc) in Hugo, which is a web framework made with Go, but it didn’t feel like writing actual Go code. So to scratch this itch, i decided to finally write some Go code.</p>
+
+<p>And I chose to implement SHA-256 algorithm with it. Since I joined the <a href="http://hackclub.com/">Hack Club</a> community, I have been very motivated to do such small little experiments, just for fun. It always feels good to finish a small challenge that you’ve set for yourself.</p>
+
+<p>I used this <a href="https://qvault.io/cryptography/how-sha-2-works-step-by-step-sha-256/">Qvault: How SHA-256 works guide</a> for the algorithm, but there were some other ver useful links that I used, which are listed below:</p>
+<ul>
+  <li><a href="https://golang.org/doc/tutorial/getting-started">Go Docs: Getting Started</a></li>
+  <li><a href="https://golang.org/doc/tutorial/create-module">Go Docs: Create a Module</a></li>
+  <li><a href="https://github.com/willf/pad/blob/master/pad.go">Willf: String right/left pad library</a></li>
+  <li><a href="https://www.geeksforgeeks.org/left-rotation-right-rotation-string-2/">GeeksForGeeks: How to rotate a string</a></li>
+  <li><a href="https://www.geeksforgeeks.org/xor-of-two-binary-strings/">GeeksForGeeks: How to XOR two binary strings</a></li>
+  <li><a href="https://www.geeksforgeeks.org/how-to-reverse-a-string-in-golang/">GeeksForGeeks: How to reverse a string in Go</a></li>
+  <li><a href="https://stackoverflow.com/questions/25592084/converting-binary-string-to-a-hexadecimal-string-java">Stack Overflow: Convert a binary string to hexadecimal string</a></li>
+</ul>
+
+<h2 id="challenges-i-faced">Challenges I faced:</h2>
+<ul>
+  <li>Obviously, the biggest challenge was that i was unfamiliar with the language, so doing anything meant doing some searching to find the right syntax to do something in Go language. But still, I was surprised that I was able to implement it with not that much difficulty. I think it goes to show that Go language has been well designed to be pretty intuitive. And also that the patterns you pick up from one language often carry over to other languages as well, so once you have worked with a couple of languages, it becomes easier to pick up new ones.</li>
+  <li>Code grew too big in a single file</li>
+</ul>
+
+<h2 id="lessons-learnt">Lessons learnt:</h2>
+<ul>
+  <li>The Go compiler is really good, although sometimes it was annoying that it would let me keep anything in the code that I wasn’t using. I initially felt that this was slowing me down, since I wanted to iterate fast and move from trying one thing to another quickly. But soon, I got into the habit of commenting anything I wasn’t using. And ultimately, it resulted in much cleaner code. I’ve been very guilty of leaving unused imports in javascript code because javascript doesn’t error out if i do that.</li>
+  <li>Go’s editor support is really good. I started by coding on VSCode which had a really good extension. But I soon switched over to neovim, which is my primary code editor. I was able to get really good support through the <code class="language-plaintext highlighter-rouge">coc-go</code> extension. I will look into more advanced vim extensions such as <code class="language-plaintext highlighter-rouge">vim-go</code> or <code class="language-plaintext highlighter-rouge">go-vim</code> for the next time I do some Go programming.</li>
+  <li>Using <a href="http://repl.it/">Repl.it</a> for quick iterations, and testing out individual functions was really useful, especially with the code file growing to 400+ lines. I got into this habit recently after my mentor(and boss) recommended that I use this practice for React Native development. In React Native development, using <a href="https://snack.expo.dev/">Snack</a> really helped me test new things quickly without worrying about it interacting with the whole app.</li>
+  <li>The next time I build a Go program, I want to divide my code into multiple modules. I did it all in one file this time, But next time, I’ll definitely use multiple modules. It really does become a hassle to have all your code in one file. Also, it would be good for me to learn about using vim marks, I started doing it a while back, but never got into the habit. They would be really good for when you need to create a new function, and then quickly jump back to where you were gonna use that function, which I needed to do SO many times in this project.</li>
+</ul>
+
+<h2 id="what-i-want-to-do-next">What I want to do next:</h2>
+<ul>
+  <li>I want to pickup Rust lang, that is also a language about which I have known for a long time, but haven’t gotten around to implementing anything in it. I don’t know what to make in it yet, but I bet it will be fun.</li>
+  <li>I also didn’t use the main feature which Go provides which is exceptional multi-threading. I definitely want to make something which uses this feature of Go language. Perhaps some dynamic programming solutions will be cool to implement (<a href="https://www.geeksforgeeks.org/graph-coloring-set-2-greedy-algorithm/">Map coloring algorithm</a>? <a href="https://muller.unitime.org/lscs04.pdf">Iterative Forward Search</a>?)</li>
+</ul>
+
+<h2 id="links">Links:</h2>
+<ul>
+  <li><a href="https://github.com/kronaemmanuel/sha256-go">Repository</a></li>
+</ul>
+
+
+        </div>
+      </div>
+    </section>
+    <section class="border-b border-gray-500">
+      <div class="container mx-auto py-56 border-l border-r border-gray-500">
+        
+
+
+<div class="bouncing justify-center text-red-600 font-press-start">
+  
+  
+    <div class="bouncing_letter" style="animation-delay: 0s; animation-duration: 2.5s">l</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 0.2s; animation-duration: 2.5s">o</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 0.4s; animation-duration: 2.5s">a</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 0.6s; animation-duration: 2.5s">d</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 0.8s; animation-duration: 2.5s">i</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 1.0s; animation-duration: 2.5s">n</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 1.2s; animation-duration: 2.5s">g</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 1.4s; animation-duration: 2.5s">.</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 1.6s; animation-duration: 2.5s">.</div>
+    
+  
+    <div class="bouncing_letter" style="animation-delay: 1.8s; animation-duration: 2.5s">.</div>
+    
+  
+</div>
+
+      </div>
+    </section>
+  </body>
+</html>
